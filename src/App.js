@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import ReactPlayer from 'react-player'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = { urlList: [] }
+
+  getVideo = (event) => {
+    event.preventDefault();
+    const urlList = [...this.state.urlList];
+    urlList.push(this.state.url);
+    this.setState({urlList});
 }
 
+  handleChange = ({target: input}) => {
+    let url = {...this.state.url}
+    url = input.value;
+    console.log(url)
+    this.setState({ url });
+  }
+
+  render() { 
+    return ( 
+      <div>
+        <form onSubmit={this.getVideo}>
+          <input type="text" onChange={this.handleChange} name="url" placeholder="enter video link"/>
+          <button type="submit">Add Video</button>
+        </form>
+        {this.state.urlList.map((url, ind) => {
+          return <ReactPlayer url={url} key={ind}/>
+        })}
+      </div>
+     );
+  }
+}
+ 
 export default App;
