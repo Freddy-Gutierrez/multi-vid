@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Switch, Route } from "react-router-dom";
-import Video from './Components/video';
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player/lazy'
 import "./CSS/videoLayout.css";
 
+const youtubeHelp = 'If entering direct link from youtube doesn\'t work click the share button below the video, copy that link and enter it into the search bar.';
 class App extends Component {
   state = { urlList: []}
 
@@ -73,6 +72,7 @@ class App extends Component {
           <form className="header" onSubmit={this.getVideo}>
             <input type="text" onChange={this.handleChange} name="url" placeholder="enter video link"/>
             <button type="submit" disabled={this.state.urlList.length >= 12 ? true : false}>Add Video</button>
+            <button className="button-link" type="button" onClick={() => alert(youtubeHelp)}>Playing a youtube video</button>
           </form>
           <div className="video-container">
             {this.state.urlList.map((url, ind) => {            
