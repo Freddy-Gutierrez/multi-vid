@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import ReactPlayer from 'react-player'
+import { Switch, Route } from "react-router-dom";
+import Video from './Components/video';
+import ReactPlayer from 'react-player';
 import "./CSS/videoLayout.css";
 
 class App extends Component {
@@ -60,31 +62,32 @@ class App extends Component {
 
   handleChange = ({target: input}) => {
     let url = {...this.state.url}
-    url = input.value;
-    console.log(url)
+    url = input.value;    
     this.setState({ url });
   }
 
   render() {     
     return ( 
-      <div className="page-container">
-        <form onSubmit={this.getVideo}>
-          <input type="text" onChange={this.handleChange} name="url" placeholder="enter video link"/>
-          <button type="submit" disabled={this.state.urlList.length >= 12 ? true : false}>Add Video</button>
-        </form>
-        <div className="video-container">
-          {this.state.urlList.map((url, ind) => {            
-            return <ReactPlayer 
-                    className="video-display"
-                    width={this.getWidth()}
-                    height={this.getHeight()}
-                    url={url}
-                    playing={true}
-                    controls={true}
-                    key={ind}
-                  />                  
-          })}
-        </div>
+      <div>      
+        <div className="page-container">
+          <form className="header" onSubmit={this.getVideo}>
+            <input type="text" onChange={this.handleChange} name="url" placeholder="enter video link"/>
+            <button type="submit" disabled={this.state.urlList.length >= 12 ? true : false}>Add Video</button>
+          </form>
+          <div className="video-container">
+            {this.state.urlList.map((url, ind) => {            
+              return <ReactPlayer 
+                      className="video-display"
+                      width={this.getWidth()}
+                      height={this.getHeight()}
+                      url={url}
+                      playing={true}
+                      controls={true}
+                      key={ind}
+                    />                  
+            })}
+          </div>
+        </div>   
       </div>
      );
   }
